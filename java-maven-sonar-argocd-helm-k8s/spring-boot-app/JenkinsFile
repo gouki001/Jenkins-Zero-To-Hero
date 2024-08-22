@@ -37,9 +37,8 @@ pipeline {
       }
       steps {
         script {
-            // Create and use a Buildx builder
-            sh 'docker buildx create --name mybuilder'
-            sh 'docker buildx use mybuilder'
+            // Ensure Buildx is enabled and setup
+            sh 'docker buildx inspect mybuilder || docker buildx create --use'
             
             // Build and push Docker image using Buildx
             sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} . --push'
