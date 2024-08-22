@@ -1,11 +1,16 @@
 pipeline {
   agent {
     docker {
-      image 'eclipse-temurin:17-jre-alpine' 
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+      image 'maven:3.8.5-openjdk-17-slim' 
+      args '--pull --user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
   stages {
+    stage('Clean Workspace') {
+      steps {
+        cleanWs()
+     }
+ }
     stage('Checkout') {
       steps {
         sh 'echo passed'
