@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      image 'zhmkrks/customrepo:v1.0' 
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket to access the host's Docker daemon
+      image 'zhmkrks/customrepo:v1.0'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
   stages {
@@ -37,8 +37,10 @@ pipeline {
       }
       steps {
         script {
-            // Initialize Docker Buildx
-            sh 'docker buildx create --use'
+            // Create and use a Buildx builder
+            sh 'docker buildx create --name mybuilder'
+            sh 'docker buildx use mybuilder'
+            
             // Build and push Docker image using Buildx
             sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE} . --push'
         }
