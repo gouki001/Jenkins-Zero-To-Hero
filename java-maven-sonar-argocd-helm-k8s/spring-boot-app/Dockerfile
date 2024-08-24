@@ -7,9 +7,6 @@ ARG artifact=target/spring-boot-web.jar
 
 WORKDIR /opt/app
 
-# Change ownership and permissions
-RUN chown -R root:root /opt/app && chmod -R 777 /opt/app
-
 COPY ${artifact} app.jar
 
 # This should not be changed
