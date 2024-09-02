@@ -49,7 +49,7 @@ pipeline {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
             GIT_USER_NAME = "gouki001"
-            WORKSPACE_DIR = "/var/lib/jenkins/workspace/ultimate-demo-argo"
+            WORKSPACE_DIR = "/var/lib/jenkins/workspace/springboot-demo"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
